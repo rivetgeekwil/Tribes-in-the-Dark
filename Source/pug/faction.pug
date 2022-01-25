@@ -1,0 +1,141 @@
+mixin favor(name)
+		.col100.def-margin
+				.advancement-header.flex.greyheader
+					.label(data-i18n='favor')
+					.xpholder.flex
+						//- generates 8 xp boxes
+						+radio(`${name}_favor`)(value='0', checked).tooth.zero
+						each num in range(1,8)
+							+radio(`${name}_favor`)(value=num).tooth.xptooth
+		.col100.def-margin
+
+mixin makeoutlook(name, tier, hold, status)
+		+text-input('name')(data-i18n-placeholder=name).faction-name
+		+text-input(`${name}_tier`)(data-i18n-placeholder=`${tier}`).faction-tier
+		+text-input(`${name}_hold`)(data-i18n-placeholder=`${hold}`).faction-hold 
+		+number-input(`${name}_status`)(value=`${status}`).faction-status
+		+checkbox('expand').expand
+		+textarea(`${name}_notes`)(data-i18n-placeholder='faction_notes')
+		+favor(name)
+		.col100.itemcolumn.small-margin
+			.boonheader.small-margin.col100.flex
+				.label(data-i18n='boons')
+			.regularitems.col100.free-repcontrol
+				.item
+					+autoexpand('level_1')(data-i18n-placeholder='level_1').itemname
+				+makeboon(`${name}_boon_1`)
+				+makeboon(`${name}_boon_2`)
+				+makeboon(`${name}_boon_3`)
+				.item
+					+autoexpand('level_2')(data-i18n-placeholder='level_2').itemname
+				+makeboon(`${name}_boon_4`)
+				+makeboon(`${name}_boon_5`)
+				+makeboon(`${name}_boon_6`)
+				.item
+					+autoexpand('level_3')(data-i18n-placeholder='level_3').itemname
+				+makeboon(`${name}_boon_7`)
+				+makeboon(`${name}_boon_8`)
+				+makeboon(`${name}_boon_9`)
+				.item
+					+autoexpand('level_4')(data-i18n-placeholder='level_4').itemname
+				+makeboon(`${name}_boon_10`)
+				+makeboon(`${name}_boon_11`)
+				+makeboon(`${name}_boon_12`)
+
+mixin makefaction(name, tier, hold, status)
+		+text-input('name')(data-i18n-placeholder=name).faction-name
+		+text-input(`${name}_tier`)(data-i18n-placeholder=`${tier}`).faction-tier
+		+text-input(`${name}_hold`)(data-i18n-placeholder=`${hold}`).faction-hold 
+		+number-input(`${name}_status`)(value=`${status}`).faction-status
+		+checkbox('expand').expand
+		+textarea(`${name}_notes`)(data-i18n-placeholder='faction_notes')
+		+favor(name)
+		.col100.itemcolumn.small-margin
+			.boonheader.small-margin.col100.flex
+				.label(data-i18n='boons')
+			.regularitems.col100.free-repcontrol
+				+makeboon(`${name}_boon_1`)
+
+
+mixin makeboon(boon)
+		.item
+			+checkbox(`${boon}_check_1`).checkbox.squarebox
+			+autoexpand(`${boon}_name`)(data-i18n-placeholder=`${boon}`).itemname
+		
+// Faction Sheet
++hidden-input('setting_clocks_only')(value='0').input-clocks-only
+.type-faction.flex-wrap
+	.factiontitle.flex.col100
+		+text-input('factions_title', 'factions_title').label
+		+fortuneroll('Fortune_faction', '{{fortune=1}} {{title=^{fortune}}} {{short=1}} {{charname=}}', true)(data-i18n='roll_fortune').fortunebutton.borderbutton
+	.factions.flex.free-repcontrol
+		.col24b
+			.factions-header.flex.uppercase
+				+text-input(name='outlooks' title='outlooks' data-i18n-placeholder='outlooks').faction-name.label
+				span.faction-tier(data-i18n='tier')
+				span.faction-hold(data-i18n='hold')
+				span.faction-status(data-i18n='status')
+			.faction
+				+makeoutlook('faction_doomsayers','tier0','strong_hold',0)
+			.factions-header.flex.uppercase
+				+text-input(name='tribals' title='tribals' data-i18n-placeholder='tribals').faction-name.label
+				span.faction-tier(data-i18n='tier')
+				span.faction-hold(data-i18n='hold')
+				span.faction-status(data-i18n='status')
+			.faction
+				+makefaction('faction_agnites','tierII','strong_hold',0)
+				+makefaction('faction_dahlians','tierIII','strong_hold',0)
+				+makefaction('faction_evans','tierIV','strong_hold',-1)
+				+makefaction('faction_joanites','tierIV','strong_hold',-2)
+				+makefaction('faction_magdalites','tierIII','strong_hold',-1)
+				+makefaction('faction_terashebans','tierIV','strong_hold',-2)
+				+makefaction('faction_yagans','tierIII','strong_hold',-1)
+		.col24b
+			.factions-header.flex.uppercase
+				+text-input(name='outlooks' title='outlooks' data-i18n-placeholder='outlooks').faction-name.label
+				span.faction-tier(data-i18n='tier')
+				span.faction-hold(data-i18n='hold')
+				span.faction-status(data-i18n='status')
+			.faction
+				+makeoutlook('faction_herites','tier0','strong_hold',0)
+			.factions-header.flex.uppercase
+				+text-input(name='zbri' title='zbri' data-i18n-placeholder='zbri').faction-name.label
+				span.faction-tier(data-i18n='tier')
+				span.faction-hold(data-i18n='hold')
+				span.faction-status(data-i18n='status')
+			.faction
+				+makefaction('faction_flemis','tierIV','strong_hold',-1)
+				+makefaction('faction_koleris','tierIV','strong_hold',-2)
+				+makefaction('faction_melanis','tierIV','strong_hold',-1)
+				+makefaction('faction_johan','tierIV','strong_hold',-1)
+		.col24b
+			.factions-header.flex.uppercase
+				+text-input(name='outlooks' title='outlooks' data-i18n-placeholder='outlooks').faction-name.label
+				span.faction-tier(data-i18n='tier')
+				span.faction-hold(data-i18n='hold')
+				span.faction-status(data-i18n='status')
+			.faction
+				+makeoutlook('faction_jackers','tier0','strong_hold',0)
+			.factions-header.flex.uppercase
+				+text-input(name='others' title='others' data-i18n-placeholder='others').faction-name.label
+				span.faction-tier(data-i18n='tier')
+				span.faction-hold(data-i18n='hold')
+				span.faction-status(data-i18n='status')
+			.faction
+				+makefaction('faction_keepers','tierII','strong_hold',0)
+				+makefaction('faction_outlanders','tierII','strong_hold',0)
+				+makefaction('faction_hunters','tierII','strong_hold',0)
+		.col24b
+			.factions-header.flex.uppercase
+				+text-input(name='outlooks' title='outlooks' data-i18n-placeholder='outlooks').faction-name.label
+				span.faction-tier(data-i18n='tier')
+				span.faction-hold(data-i18n='hold')
+				span.faction-status(data-i18n='status')
+			.faction
+				+makeoutlook('faction_lightbringers','tier0','strong_hold',0)
+	.clocks.col55.free-repcontrol
+		.specialheader.label(data-i18n='clocks')
+		fieldset.repeating_factionclock
+			+makeclock
+	.col45.right-column
+		+textarea('faction_notes')(data-i18n-placeholder='notes').notes

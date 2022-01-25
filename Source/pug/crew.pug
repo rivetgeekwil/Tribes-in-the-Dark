@@ -1,0 +1,267 @@
+mixin makeupgrade(numboxes, def, desc,link)
+	.col50
+		.item
+			each numbox in range(1,numboxes)
+				+checkbox(`upgrade_${def}_check_${numbox}`).checkbox.squarebox
+				if (link === 1)
+					if(numbox < numboxes )
+						span.floatingbar
+			+text-input(`upgrade_${def}_name`, def).itemname
+	
+		.item-description
+			if (desc!='')
+				+checkbox(`upgrade_${def}_expand`).expand
+				+textarea(`upgrade_${def}_description`, desc)(data-i18n-placeholder='description')
+
+// Cell Sheet
+.type-crew.flex
+	// Left column
+	.col55.flex-wrap
+		// Logo, Header text fields
+		.col100.header.flex-wrap
+			.col100.tribeslogo
+			//.col45.crewheader.label(data-i18n='cell_sheet')
+		.col100.header.flex-wrap
+			label.col100
+				+autoexpand('reputation')
+				+hidden-input('reputation')(value='')
+				.text
+					span.label.title(data-i18n='reputation')
+					span.uppercase.info(data-i18n='reputation_info' name="reputation")
+			label.col100
+				+autoexpand('cause')
+				+hidden-input('cause')(value='')
+				.text
+					span.label.title(data-i18n='cause')
+					span.uppercase.info(data-i18n='cause_info' name="cause")
+			label.col100
+				+autoexpand('aptitude')
+				+hidden-input('aptitude')(value='')
+				.text
+					span.label.title(data-i18n='aptitude')
+					span.uppercase.info(data-i18n='aptitude_info' name="aptitude")
+			label.col100
+				+text-input('sanctuary')
+				.label.text.title(data-i18n='sanctuary')
+		.col100.flex.heat-and-vault.def-margin
+			//- Resources
+			.col45.flex.crewcoin
+				.col100.blackheader
+					.label(data-i18n='resources')
+				.col100.flex.crewcoin-coins
+					+radio('cellresource')(value='0', checked).zero
+					each num in range(1,5)
+						+radio('cellresource')(value=num).radiobox
+					.crewcoinbar
+					each num in range(6,10)
+						+radio('cellresource')(value=num).radiobox.vaultcoin
+			// Barter
+			.col55.flex.crewcoin
+				.col100.blackheader
+					.label(data-i18n='barter')
+					
+					//- 	.label(data-i18n='vaults')
+				.col100.flex.crewcoin-coins
+					+radio('cellbarter')(value='0', checked).zero
+					each num in range(1,5)
+						+radio('cellbarter')(value=num).radiobox
+					.crewcoinbar
+					each num in range(6,10)
+						+radio('cellbarter')(value=num).radiobox.vaultcoin
+		// Special abilities
+		.col100.def-margin
+			.specialheader.col100.label(data-i18n='special_abilities')
+			.greyholder.col100
+				fieldset.repeating_crewability
+					.specialability.flex
+						+broadcast('Show', '{{charname=@{character_name}}} {{type=^{special_ability}}} {{title=@{name}}} {{content=@{description}}}')
+						+checkbox('check').checkbox.circlebox
+						+autoexpand('name')(data-i18n-placeholder='ability_name').abilityname.smallcaps
+						+autoexpand('description')(data-i18n-placeholder='ability_description').abilitydesc
+		// Advancement
+		.col100.def-margin
+			.advancement-header.flex.blackheader
+				.label.markxp(data-i18n='mark_xp:')
+				.label(data-i18n='crew_advancement')
+				.xpholder.flex
+					+radio('crew_xp')(value='0', checked).tooth.zero
+					//- up to 10 XP
+					each num in range(1,10)
+						+radio('crew_xp')(value=num).tooth.xptooth
+			ul.advancement-desc
+				li.nondot(data-i18n='xp_top')
+				li(data-i18n='xp_challenge')
+				li(data-i18n='xp_bolster')
+				li(data-i18n='xp_express')
+				li.nondot(data-i18n='xp_choose')
+				li.nondot
+					+checkbox('check').checkbox.circlebox
+					span(data-i18n='xp_popular')
+				li.nondot
+					+checkbox('check1').checkbox.circlebox
+					span(data-i18n='xp_protected')
+				li.nondot
+					+checkbox('check2').checkbox.circlebox
+					span(data-i18n='xp_built')
+		.col100.clocks.def-margin.free-repcontrol
+			.specialheader.label(data-i18n='clocks')
+			fieldset.repeating_crewclock
+				+makeclock
+	// Right column
+	.col45.flex-wrap.right-column
+		// Crew Type
+		.playbook.flex
+			+text-input('cell_name')(data-i18n-placeholder='crew', placeholder='Crew').label
+			+hidden-input('crew_type')(value='cell')
+		// Upgrades and Hunting Grounds
+		.col53.small-margin
+			// Upgrades
+			.itemheader.col100
+				span.label(data-i18n='boons')
+			.itemholder.col100.upgrades
+				// Specific upgrades
+				.playbookitems.col100.free-repcontrol
+					fieldset.repeating_upgrade
+						+hidden-input('boxes_chosen')(value='0').boxes-chosen
+						.item.numboxes-chooser
+							div(data-i18n='how_many_boxes')
+							+number-input('numboxes')(min='1', max='3', value='1')
+							label
+								+checkbox('boxes_chosen')(data-i18n='ok')
+						.item
+							+hidden-input('numboxes')(value='1').numboxes
+							+checkbox('check_1').checkbox.squarebox
+							span.floatingbar.boxesgeq2
+							+checkbox('check_2', 'boxesgeq2').checkbox.squarebox
+							span.floatingbar.boxesgeq3.boxesgeq2
+							+checkbox('check_3', 'boxesgeq2 boxesgeq3').checkbox.squarebox
+							+autoexpand('name')(data-i18n-placeholder='an_upgrade').itemname
+						.item-description
+							+checkbox('expand').expand
+							+textarea('description')(data-i18n-placeholder='description')
+				// Regular upgrades
+				.itemheader.col100
+					span.label(data-i18n='crew_upgrades')
+				.regularitems.flex-wrap.col100
+					.blackheader.col75
+						+roll('Tier', '{{resist=1}} {{short=1}} {{title=^{community}}} {{subtitle=^{roll_their}}} @{community_formula}')(data-i18n='community').label.inherit.rollbutton
+						+hidden-input('community_formula')(value=zerodiceFormula)
+					.tier.col25
+						+hidden-checkbox('community')(value='0', checked).fakeradio
+						each num in range(1,4)
+							+checkbox('community')(value=num).checkbox.circlebox.fakeradio
+							//- generates 4 tier circles
+					+makeupgrade(1, 'contact', 'upgrade_contact_description',0)
+					+makeupgrade(2, 'advocate', 'upgrade_advocate_description',1)
+					+makeupgrade(1, 'diversion', 'upgrade_diversion_description',0)
+					+makeupgrade(2, 'counselor', 'upgrade_counselor_description',1)
+					+makeupgrade(1, 'side_quest', 'upgrade_side_quest_description',0)
+					+makeupgrade(2, 'fixer', 'upgrade_fixer_description',1)
+					+makeupgrade(0, '', '',0)
+					+makeupgrade(2, 'mentor', 'upgrade_mentor_description',1)
+					.blackheader.col75
+						+roll('Tier', '{{resist=1}} {{short=1}} {{title=^{sanctuary}}} {{subtitle=^{roll_their}}} @{sanctuary_formula}')(data-i18n='sanctuary').label.inherit.rollbutton
+						+hidden-input('sanctuary_formula')(value=zerodiceFormula)
+					.tier.col25
+						+hidden-checkbox('sanctuary')(value='0', checked).fakeradio
+						each num in range(1,4)
+							+checkbox('sanctuary')(value=num).checkbox.circlebox.fakeradio
+							//- generates 4 tier circles
+					+makeupgrade(1, 'infirmary', 'upgrade_infirmary_description',0)
+					+makeupgrade(3, 'tunnels', 'upgrade_tunnels_description',0)
+					+makeupgrade(1, 'quarters', 'upgrade_quarters_description',0)
+					+makeupgrade(2, 'transport', 'upgrade_transport_description',0)
+					+makeupgrade(2, 'secure', 'upgrade_secure_description',0)
+					+makeupgrade(0, '', '',0)
+					+makeupgrade(0, 'training', '',0)
+					+makeupgrade(0, 'professionals', '',0)
+					+makeupgrade(1, 'insight', 'upgrade_insight_description')
+					+makeupgrade(2, 'healer', 'upgrade_healer_description',1)
+					+makeupgrade(1, 'prowess', 'upgrade_prowess_description',0)
+					+makeupgrade(2, 'maker', 'upgrade_maker_description',1)
+					+makeupgrade(1, 'resolve', 'upgrade_resolve_description',0)
+					+makeupgrade(2, 'pilot', 'upgrade_pilot_description',1)
+					+makeupgrade(1, 'personal', 'upgrade_personal_description',0)
+					+makeupgrade(2, 'ranger', 'upgrade_pilot_description',1)
+					.col100
+						.item
+							each num in range(1,4)
+								+checkbox(`upgrade_mastery_check_${num}`).checkbox.squarebox
+								if (num < 4)
+									span.floatingbar
+							+text-input('upgrade_mastery_name', 'mastery').itemname
+						.item-description
+							+checkbox('upgrade_mastery_expand').expand
+							+textarea('upgrade_mastery_description', 'upgrade_mastery_description')(data-i18n-placeholder='description')
+					.blackheader.col75
+						+roll('Tier', '{{resist=1}} {{short=1}} {{title=^{supply}}} {{subtitle=^{roll_their}}} @{supply_formula}')(data-i18n='supply').label.inherit.rollbutton
+						+hidden-input('supply_formula')(value=zerodiceFormula)
+					.tier.col25
+						+hidden-checkbox('supply')(value='0', checked).fakeradio
+						each num in range(1,4)
+							+checkbox('supply')(value=num).checkbox.circlebox.fakeradio
+					+makeupgrade(1, 'storageupgd', 'upgrade_storageupgd_description',0)
+					+makeupgrade(0, '', '',0)
+					+makeupgrade(0, 'quality', 'upgrade_quality_description',0)
+					+makeupgrade(0, 'load', 'upgrade_load_description',0)
+					+makeupgrade(1, 'armor_quality', '',0)
+					+makeupgrade(1, 'armor_load', '',0)
+					+makeupgrade(1, 'basic_gear_quality', '',0)
+					+makeupgrade(1, 'basic_gear_load', '',0)
+					+makeupgrade(1, 'tools_kits_quality', '',0)
+					+makeupgrade(1, 'tools_kits_load', '',0)
+					+makeupgrade(1, 'weapons_quality', '',0)
+					+makeupgrade(1, 'weapons_load', '',0)
+							//- generates 4 tier circles
+					.blackheader.col75
+						+roll('Tier', '{{resist=1}} {{short=1}} {{title=^{vision}}} {{subtitle=^{roll_their}}} @{vision_formula}')(data-i18n='vision').label.inherit.rollbutton
+						+hidden-input('vision_formula')(value=zerodiceFormula)
+					.tier.col25
+						+hidden-checkbox('vision')(value='0', checked).fakeradio
+						each num in range(1,4)
+							+checkbox('vision')(value=num).checkbox.circlebox.fakeradio
+					+makeupgrade(1, 'patron_spirit', 'upgrade_patron_spirit_description',0)
+					+makeupgrade(0, 'rituals', '',0)
+					+makeupgrade(2, 'ritual_space', 'upgrade_ritual_space_description',0)
+					+makeupgrade(1, 'divination', '',0)
+					+makeupgrade(0, 'adepts', '',0)
+					+makeupgrade(1, 'enchantment', '',0)
+					+makeupgrade(2, 'dreamer', 'upgrade_dreamer_description',0)
+					+makeupgrade(1, 'nature', '',0)
+					+makeupgrade(2, 'ritualist', 'upgrade_ritualist_description',0)
+					+makeupgrade(1, 'old_arts', '',0)
+					+makeupgrade(2, 'seer', 'upgrade_seer_description',0)
+					+makeupgrade(1, 'synthesis', '',0)
+					+makeupgrade(2, 'spiritualist', 'upgrade_spirutalist_description',0)
+					+makeupgrade(1, 'summoning', '',0)
+					+makeupgrade(0, '', '',0)
+					+makeupgrade(1, 'sundering', '',0)
+		// Cohorts and Contacts
+		.col47.right-column.small-margin
+			// First Cohort
+			+makecohort('cohort1_')
+			// Cohort repeating section
+			.col100.cohorts.free-repcontrol
+				fieldset.repeating_cohort
+					+makecohort('')
+			// Contacts
+			.col100.def-margin.contacts
+				.specialheader.col100.label.flex
+					+text-input('contacts_title', 'contacts').inherit
+				.greyholder.col100
+					fieldset.repeating_contact
+						.friend-contact.contact.flex
+							+hidden-input('check')(value='0').friendstate
+							label
+								+checkbox('check').checkbox
+							+autoexpand('name')(data-i18n-placeholder='contact_name')
+						+checkbox(null).expand
+						+textarea('description')(data-i18n-placeholder='notes').description
+			// Roll Fortune
+			+fortuneroll('Prep', '{{action=1}} {{short=1}} {{small-title=1}} {{subtitle=^{roll_for}}} {{title=^{prep}}}')(data-i18n='roll_prep').engagementbutton.borderbutton
+			+fortuneroll('Engagement', '{{action=1}} {{short=1}} {{small-title=1}} {{subtitle=^{roll_for}}} {{title=^{engagement}}}')(data-i18n='roll_engagement').engagementbutton.borderbutton
+			+fortuneroll('Fortune_crew', '{{fortune=1}} {{subtitle=^{roll}}} {{title=^{fortune}}}', true)(data-i18n='roll_fortune').fortunebutton.borderbutton
+		// Clocks
+		// .col100.clocks.def-margin.free-repcontrol
+			
+		+textarea('crew_notes')(data-i18n-placeholder='notes').notes
