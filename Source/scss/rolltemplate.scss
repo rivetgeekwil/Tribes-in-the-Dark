@@ -250,7 +250,7 @@ $broadcast-white: #EBDDCD;
 		line-height: 1.2;
 		font-size: 13px;
 		padding: 20px 0;
-		color: fortunegrey;
+		color: $fortunecolor;
 	}
 }
 
@@ -264,7 +264,7 @@ $broadcast-white: #EBDDCD;
 	position: relative;
 	font-family: "Averia Libre", "Times New Roman", serif;
 	background-color: $broadcast;
-	background-image: url('https://raw.githubusercontent.com/rivetgeekwil/Tribes-in-the-Dark/main/Roll20/Assets/rolltemplate/broadcast.png'); ;
+	background-image: url('https://raw.githubusercontent.com/rivetgeekwil/Tribes-in-the-Dark/main/Roll20/Assets/rolltemplate/broadcast.png');
 
 	.sheet-header {
 		color: $actioncolor;

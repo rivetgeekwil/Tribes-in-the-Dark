@@ -136,12 +136,12 @@ mixin makeclock(isFaction)
 		input.input-progress.sheet-12clock(type='radio', name='attr_progress', value='12')
 		.clock
 
--	const teeth = ['xptooth-red', 'xptooth-white', 'stresstooth-red', 'stresstooth-black', 'stresstooth-halfgrey', 'stresstooth-white', 'shorttooth-red', 'shorttooth-grey'];
+-	const teeth = ['xptooth-filled', 'xptooth-white', 'stresstooth-red', 'stresstooth-black', 'stresstooth-halfgrey', 'stresstooth-white', 'shorttooth-red', 'shorttooth-grey'];
 
 //- Image preloading
 .preload
 	each tooth in teeth
-		img(src=`https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/Blades%20in%20the%20Dark/Assets/teeth/${tooth}.png`)
+		img(src=`https://raw.githubusercontent.com/rivetgeekwil/Blades-template/titd/Assets/teeth/${tooth}.png`)
 
 //- Global setttings
 +hidden-input('setting_focus_shadow')(value='1').focus-shadow
