@@ -10,7 +10,7 @@ mixin favor(name)
 		.col100.def-margin
 
 mixin makeoutlook(name, tier, hold, status)
-		+text-input('name')(data-i18n-placeholder=name).faction-name
+		+text-input(name)(data-i18n-placeholder=name).faction-name
 		+text-input(`${name}_tier`)(data-i18n-placeholder=`${tier}`).faction-tier
 		+text-input(`${name}_hold`)(data-i18n-placeholder=`${hold}`).faction-hold 
 		+number-input(`${name}_status`)(value=`${status}`).faction-status
@@ -43,7 +43,7 @@ mixin makeoutlook(name, tier, hold, status)
 				+makeboon(`${name}_boon_12`)
 
 mixin makefaction(name, tier, hold, status)
-		+text-input('name')(data-i18n-placeholder=name).faction-name
+		+text-input(name)(data-i18n-placeholder=name).faction-name
 		+text-input(`${name}_tier`)(data-i18n-placeholder=`${tier}`).faction-tier
 		+text-input(`${name}_hold`)(data-i18n-placeholder=`${hold}`).faction-hold 
 		+number-input(`${name}_status`)(value=`${status}`).faction-status

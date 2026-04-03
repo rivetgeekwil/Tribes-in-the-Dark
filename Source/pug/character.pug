@@ -197,21 +197,21 @@
 				div
 					ul
 						li
-							+text-input('gatherinfo6')(data-i18n-placeholder='gatherinfo_how_can_I_find').inherit
+							+text-input('gatherinfo1')(data-i18n-placeholder='gatherinfo_how_can_I_find').inherit
 						li
 							+text-input('gatherinfo2')(data-i18n-placeholder='gatherinfo_how_can_I_get_them').inherit
 						li
 							+text-input('gatherinfo3')(data-i18n-placeholder='gatherinfo_what_are_they_really').inherit
 						li
-							+text-input('gatherinfo1')(data-i18n-placeholder='gatherinfo_what_do_they_intend').inherit
+							+text-input('gatherinfo4')(data-i18n-placeholder='gatherinfo_what_do_they_intend').inherit
 						li
-							+text-input('gatherinfo4')(data-i18n-placeholder='gatherinfo_what_should_I_look').inherit
+							+text-input('gatherinfo5')(data-i18n-placeholder='gatherinfo_what_should_I_look').inherit
 						li
-							+text-input('gatherinfo4')(data-i18n-placeholder='gatherinfo_whats_going_on').inherit
+							+text-input('gatherinfo6')(data-i18n-placeholder='gatherinfo_whats_going_on').inherit
 						li
-							+text-input('gatherinfo5')(data-i18n-placeholder='gatherinfo_wheres_the_weakness').inherit
+							+text-input('gatherinfo7')(data-i18n-placeholder='gatherinfo_wheres_the_weakness').inherit
 						li
-							+text-input('gatherinfo4')(data-i18n-placeholder='gatherinfo_what_is_interesting').inherit
+							+text-input('gatherinfo8')(data-i18n-placeholder='gatherinfo_what_is_interesting').inherit
 	// Right column
 	.col45.flex-wrap.right-column
 		// Playbook name and description
@@ -278,7 +278,7 @@
 								label
 									+checkbox('boxes_chosen')(data-i18n='ok')
 							.item
-								+hidden-input('numboxes')(Fsteavalue='0').numboxes
+								+hidden-input('numboxes')(value='0').numboxes
 								+checkbox('check_1').checkbox.squarebox
 								span.floatingbar.boxesgeq2
 								+checkbox('check_2', 'boxesgeq2').checkbox.squarebox
